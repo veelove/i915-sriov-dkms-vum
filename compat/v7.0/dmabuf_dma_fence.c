@@ -11,6 +11,8 @@
 #include <linux/export.h>
 #include <linux/dma-fence.h>
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(7, 0, 0)
+
 /**
  * dma_fence_check_and_signal_locked - signal the fence if it's not yet signaled
  * @fence: the fence to check and signal
@@ -54,3 +56,5 @@ bool dma_fence_check_and_signal(struct dma_fence *fence)
 	return ret;
 }
 EXPORT_SYMBOL(dma_fence_check_and_signal);
+
+#endif
