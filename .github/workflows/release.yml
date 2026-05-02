@@ -3,6 +3,10 @@ name: Release
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
+    tags:
+      - 'v*'
 
 jobs:
   packaging-debian:
@@ -54,20 +58,35 @@ jobs:
         with:
           name: arch-package
           path: "i915-sriov-dkms/*.pkg*"
+  
   release:
     runs-on: ubuntu-24.04
     needs: [packaging-debian, packaging-archlinux]
-    if: github.ref_type == 'tag'
     permissions:
       contents: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           merge-multiple: true
+      - name: Get version from dkms.conf
+        id: get_version
+        run: |
+          LATEST_VERSION=$(grep "^PACKAGE_VERSION" "dkms.conf" 2>/dev/null || echo "0.0.1")
+          LATEST_VERSION=$(echo "$LATEST_VERSION" | sed 's/.*\?"\([^"]*\)".*/\1/')
+          echo "version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+          echo "tag_name=v$LATEST_VERSION" >> $GITHUB_OUTPUT
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.get_version.outputs.tag_name }}
+          name: Release ${{ steps.get_version.outputs.version }}
           files: |
             *.pkg*
             *.deb
+          draft: false
+          prerelease: false
