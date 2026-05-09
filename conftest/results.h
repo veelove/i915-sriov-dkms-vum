@@ -2,7 +2,7 @@
 #ifndef _INTEL_DRM_BACKPORT_CONFTEST_H_
 #define _INTEL_DRM_BACKPORT_CONFTEST_H_
 
-/* Default configuration for Linux 7.0 */
+/* Default configuration for Linux 7.1 */
 #undef IDB_COPY_FROM_USER_INATOMIC_NONTEMPORAL
 
 #endif /* _INTEL_DRM_BACKPORT_CONFTEST_H_ */
