@@ -1,5 +1,11 @@
 i915-sriov-dkms (###LATEST_VERSION###) UNRELEASED; urgency=medium
 
+  * Add support for Linux 7.1 kernel
+
+ -- bbaa <bbaa@bbaa.moe>  Sat, 10 May 2026 10:00:00 +0800
+
+i915-sriov-dkms (2026.05.09) UNRELEASED; urgency=medium
+
   * Add support for Linux 7.0 kernel
   * Sync with v7.0.1
 
