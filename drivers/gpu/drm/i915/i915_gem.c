@@ -520,12 +520,15 @@ ggtt_write(struct io_mapping *mapping,
 
 	/* We can use the cpu mem copy function because this is X86. */
 	vaddr = io_mapping_map_atomic_wc(mapping, base);
-#if IDB_COPY_FROM_USER_INATOMIC_NONTEMPORAL
+#if defined(IDB_COPY_FROM_USER_INATOMIC_NONTEMPORAL)
 	unwritten = copy_from_user_inatomic_nontemporal((void __force *)vaddr + offset,
 						      user_data, length);
-#else
+#elif defined(IDB_COPY_FROM_USER_INATOMIC_NOCACHE)
 	unwritten = __copy_from_user_inatomic_nocache((void __force *)vaddr + offset,
 						      user_data, length);
+#else
+	unwritten = copy_from_user((void __force *)vaddr + offset,
+				   user_data, length);
 #endif
 	io_mapping_unmap_atomic(vaddr);
 	if (unwritten) {

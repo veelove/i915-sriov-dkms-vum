@@ -74,6 +74,18 @@ ct_copy_from_user_inatomic_nontemporal() {
 	compile_check "$CODE" "IDB_COPY_FROM_USER_INATOMIC_NONTEMPORAL" 1
 }
 
+ct_copy_from_user_inatomic_nocache() {
+	CODE="
+	#include <linux/uaccess.h>
+	static void conftest_copy_from_user_inatomic_nocache(void)
+	{
+		__copy_from_user_inatomic_nocache((void __force *)NULL, NULL, 0);
+	}
+	"
+
+	compile_check "$CODE" "IDB_COPY_FROM_USER_INATOMIC_NOCACHE" 1
+}
+
 case "${ACTION}" in
 compile_test)
 	for TEST in "$@"; do
