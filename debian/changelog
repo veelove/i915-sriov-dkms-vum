@@ -1,5 +1,13 @@
 i915-sriov-dkms (###LATEST_VERSION###) UNRELEASED; urgency=medium
 
+  * Add support for Linux 7.0.14-17-pve kernel
+  * Add bitmap and drm_suballoc backports for kernel 7.0.x
+  * Sync v6.19 drm_dp_helper with upstream (add drm_dp_post_lt_adj_req_in_progress)
+
+ -- bbaa <bbaa@bbaa.moe>  Mon, 21 Sep 2026 10:00:00 +0800
+
+i915-sriov-dkms (2026.05.09) UNRELEASED; urgency=medium
+
   * Add support for Linux 7.1 kernel
 
  -- bbaa <bbaa@bbaa.moe>  Sat, 10 May 2026 10:00:00 +0800
