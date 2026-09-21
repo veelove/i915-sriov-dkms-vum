@@ -3,6 +3,11 @@ i915-sriov-dkms (###LATEST_VERSION###) UNRELEASED; urgency=medium
   * Add support for Linux 7.0.14-17-pve kernel
   * Add bitmap and drm_suballoc backports for kernel 7.0.x
   * Sync v6.19 drm_dp_helper with upstream (add drm_dp_post_lt_adj_req_in_progress)
+  * Fix xe build on Linux 7.0+: intel_vsec_register() now takes struct device *
+    - xe_vsec.c: change xe_pmt_telem_read() signature to struct device *;
+      call intel_vsec_register() with dev directly
+    - xe_vsec.h: update xe_pmt_telem_read() declaration accordingly
+    - xe_hwmon.c, xe_debugfs.c: drop to_pci_dev() wrapper at call sites
 
  -- bbaa <bbaa@bbaa.moe>  Mon, 21 Sep 2026 10:00:00 +0800
 
