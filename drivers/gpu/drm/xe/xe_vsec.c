@@ -199,7 +199,6 @@ void xe_vsec_init(struct xe_device *xe)
 {
 	struct intel_vsec_platform_info *info;
 	struct device *dev = xe->drm.dev;
-	struct pci_dev *pdev = to_pci_dev(dev);
 	enum xe_vsec platform;
 
 	platform = get_platform_info(xe);

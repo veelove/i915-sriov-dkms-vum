@@ -16,6 +16,11 @@
 #include <linux/slab.h>
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(7, 1, 0)
+unsigned int __bitmap_weighted_or(unsigned long *dst, const unsigned long *bitmap1,
+				  const unsigned long *bitmap2, unsigned int bits);
+unsigned int __bitmap_weighted_xor(unsigned long *dst, const unsigned long *bitmap1,
+				  const unsigned long *bitmap2, unsigned int bits);
+
 #define BITMAP_WEIGHT(FETCH, bits)	\
 ({										\
 	unsigned int __bits = (bits), idx, w = 0;				\
