@@ -377,7 +377,11 @@ int xe_vm_validate_rebind(struct xe_vm *vm, struct drm_exec *exec,
 			return ret;
 	} while (!list_empty(&vm->gpuvm.evict.list));
 
+	#ifdef __drm_exec_for_each_locked_object
+	drm_exec_for_each_locked_object(exec, obj) {
+#else
 	drm_exec_for_each_locked_object(exec, index, obj) {
+#endif
 		ret = dma_resv_reserve_fences(obj->resv, num_fences);
 		if (ret)
 			return ret;
